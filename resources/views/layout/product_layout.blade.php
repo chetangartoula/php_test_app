@@ -20,7 +20,7 @@
         <!-- Links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-light" href="#">Products</a>
+                <a class="nav-link text-light" href="{{route('products.index')}}">Products</a>
             </li>
 
         </ul>
