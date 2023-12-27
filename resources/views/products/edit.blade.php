@@ -37,9 +37,9 @@
                         <strong>{{ $message }}</strong>
                     </div>
                 @endif
-                <form action="{{ route('store.product') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('store.product.update',$product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
+                    @method("put")
 
                     <div class="card mt-3 p-4">
                         <h3 class="text-info">Product Edit #{{$product->name}}</h3>
