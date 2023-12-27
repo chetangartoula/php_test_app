@@ -55,9 +55,9 @@
                     </tr>
                 @endforeach
 
-
             </tbody>
         </table>
+    {{$products}}
 
     </div>
     </div>

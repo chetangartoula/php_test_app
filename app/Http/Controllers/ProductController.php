@@ -11,7 +11,7 @@ class ProductController extends Controller
     {
         return view(
             "products.index",
-            ['products' => Product::orderBy('name', 'asc')->get()]
+            ['products' => Product::orderBy('name', 'asc')->simplePaginate($perPage=4,$columns = ['*'], $pageName = 'once-more')]
 
         );
     }
