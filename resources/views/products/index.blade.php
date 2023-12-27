@@ -67,8 +67,16 @@
                                 <td>
                                     <a href="products/{{ $item->id }}/edit" class="btn btn-dark btn-sm"> Edit
                                         Product</a>
-                                    <a href="products/{{ $item->id }}/delete" class="btn btn-danger btn-sm"> Delete
-                                        Product</a>
+
+
+                                    
+                                  
+                                    <form action="{{route('store.product.delete',$item->id)}}"  class="d-inline" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete Product</button>
+                                    
+                                    </form>
 
                                 </td>
 
