@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use SebastianBergmann\Type\NullType;
 
 class ProductController extends Controller
 {
     public function Get_Products()
-    {
+    {   
+        $products=Product::orderBy('name', 'asc')->simplePaginate($perPage=4,$columns = ['*'], $pageName = 'once-more');
         return view(
             "products.index",
-            ['products' => Product::orderBy('name', 'asc')->simplePaginate($perPage=4,$columns = ['*'], $pageName = 'once-more')]
+            compact('products')
 
         );
     }
@@ -49,6 +51,7 @@ class ProductController extends Controller
     }
 
     public function ProductUpdate(Request $request, $id)
+
     {
         $request->validate([
             'name' => 'required',
