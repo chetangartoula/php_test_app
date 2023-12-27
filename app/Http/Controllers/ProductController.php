@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use SebastianBergmann\Type\NullType;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function Get_Products()
-    {   
-        $products=Product::orderBy('name', 'asc')->simplePaginate($perPage=4,$columns = ['*'], $pageName = 'once-more');
-        return view(
-            "products.index",
-            compact('products')
+    public function Get_Products(Request $request)
+    {
+        $search = $request->search ?? "";
 
-        );
+        $query = DB::table('products');
+
+        if ($search !== "") {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        $products = $query->orderBy('name', 'asc')->simplePaginate(4, ['*'], 'page');
+
+        return view("products.index", compact('products'));
     }
     public function Create_Product()
     {
@@ -73,7 +81,8 @@ class ProductController extends Controller
         $products_add->save();
         return redirect(route("products.index"))->withSuccess("Product Updated sucessfully !!!!!!!!");
     }
-    public function Productdelete(Request $request,$id){
+    public function Productdelete(Request $request, $id)
+    {
         $product = Product::findOrFail($id);
         $product->delete();
         return redirect(route("products.index"))->withSuccess("Product delete sucessfully !!!!!!!!");
