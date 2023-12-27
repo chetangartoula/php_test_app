@@ -40,7 +40,7 @@ class ProductController extends Controller
 
         $products_add->save();
 
-        return back()->withSuccess("Product added sucessfully !!!!!!!!");
+        return redirect(route("products.index"))->withSuccess("Product added sucessfully !!!!!!!!");
     }
     public function product_edit($id)
     {
@@ -68,11 +68,11 @@ class ProductController extends Controller
         $products_add->description = $request->description;
 
         $products_add->save();
-        return back()->withSuccess("Product Updated sucessfully !!!!!!!!");
+        return redirect(route("products.index"))->withSuccess("Product Updated sucessfully !!!!!!!!");
     }
     public function Productdelete(Request $request,$id){
         $product = Product::findOrFail($id);
         $product->delete();
-        return back()->withSuccess("Product delete sucessfully !!!!!!!!");
+        return redirect(route("products.index"))->withSuccess("Product delete sucessfully !!!!!!!!");
     }
 }
